@@ -109,7 +109,7 @@ class JsonClient(object):
             except ValueError as err:
                 return response.text, response.headers
         except (socket.error, requests.exceptions.ConnectionError):
-            msg = 'Remote API service is unreachable'
+            msg = 'Remote API service is unreachable (%s)' % response.text
             raise APICallFailed(msg)
         except Exception as err:
             if isinstance(err, requests.HTTPError):
