@@ -136,10 +136,17 @@ class GandiModule(GandiConfig):
                          "'gandi setup' command")
                 sys.exit(1)
             if send_key:
+                #print(url)
                 if 'headers' in kwargs:
-                    kwargs['headers'].update({'X-Api-Key': apikey})
+                    if url.startswith('https://api.gandi.net/v5/domain'):
+                        kwargs['headers'].update({'authorization': 'apikey ' + apikey})
+                    else:
+                        kwargs['headers'].update({'X-Api-Key': apikey})
                 else:
-                    kwargs['headers'] = {'X-Api-Key': apikey}
+                    if url.startswith('https://api.gandi.net/v5/domain'):
+                        kwargs['headers'] = {'authorization': 'apikey ' + apikey}
+                    else:
+                        kwargs['headers'] = {'X-Api-Key': apikey}
         except MissingConfiguration:
             if not empty_key:
                 return []

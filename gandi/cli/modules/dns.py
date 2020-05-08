@@ -35,7 +35,8 @@ class Dns(GandiModule):
     @classmethod
     def list(cls):
         """List domains."""
-        return cls.json_get('%s/domains' % cls.api_url)
+        api_url = 'https://api.gandi.net/v5/domain'
+        return cls.json_get('%s/domains' % api_url)
 
     @classmethod
     def type_list(cls):
